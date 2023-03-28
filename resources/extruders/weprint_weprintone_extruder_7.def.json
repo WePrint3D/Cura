@@ -1,10 +1,10 @@
 {
-    "version": 1,
+    "version": 2,
     "name": "Extruder 7",
     "inherits": "fdmextruder",
     "metadata":
     {
-        "machine": "weprintone",
+        "machine": "WePrintOne",
         "position": "0",
         "quality_definition": "weprintone_extruder_7"
     },

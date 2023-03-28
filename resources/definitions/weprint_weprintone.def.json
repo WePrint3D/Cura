@@ -5,7 +5,7 @@
     "metadata":
     {
         "visible": true,
-        "platform": "weprintone.stl",
+        "platform": "weprintone.obj",
         "platform_offset": [
             0,
             0,
@@ -14,9 +14,9 @@
     },
     "overrides":
     {
-        "machine_depth": { "default_value": 1000 },
-        "machine_height": { "default_value": 350 },
+        "machine_depth": { "default_value": 500 },
+        "machine_height": { "default_value": 160 },
         "machine_name": { "default_value": "WePrintOne" },
-        "machine_width": { "default_value": 600 }
+        "machine_width": { "default_value": 680 }
     }
 }
