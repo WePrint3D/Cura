@@ -10,7 +10,7 @@ from conan.tools.env import VirtualRunEnv, Environment, VirtualBuildEnv
 from conan.tools.scm import Version
 from conan.errors import ConanInvalidConfiguration, ConanException
 
-required_conan_version = "<=1.56.0"
+required_conan_version = ">=1.58.0 <2.0.0"
 
 
 class CuraConan(ConanFile):
@@ -283,6 +283,9 @@ class CuraConan(ConanFile):
         self.options["pysavitar"].shared = True
         self.options["pynest2d"].shared = True
         self.options["cpython"].shared = True
+        self.options["boost"].header_only = True
+        if self.settings.os == "Linux":
+            self.options["curaengine_grpc_definitions"].shared = True
 
     def validate(self):
         version = self.conf_info.get("user.cura:version", default = self.version, check_type = str)
@@ -290,10 +293,11 @@ class CuraConan(ConanFile):
             raise ConanInvalidConfiguration("Only versions 5+ are support")
 
     def requirements(self):
-        self.requires("pyarcus/5.2.2")
+        self.requires("boost/1.82.0")
+        self.requires("pyarcus/(latest)@ultimaker/testing")
         self.requires("curaengine/(latest)@ultimaker/testing")
-        self.requires("pysavitar/5.2.2")
-        self.requires("pynest2d/5.2.2")
+        self.requires("pysavitar//(latest)@ultimaker/testing")
+        self.requires("pynest2d//(latest)@ultimaker/testing")
         self.requires("uranium/(latest)@ultimaker/testing")
         self.requires("fdm_materials/(latest)@{}/testing".format("internal" if self.options.internal else "ultimaker"))
         self.requires("cura_binary_data/(latest)@ultimaker/testing")
