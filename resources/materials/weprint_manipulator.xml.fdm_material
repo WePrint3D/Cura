@@ -14,8 +14,8 @@
     <adhesion_info>-</adhesion_info>
   </metadata>
   <properties>
-    <density>1.24</density>
-    <diameter>2.85</diameter>
+    <density>0.0</density>
+    <diameter>160.0</diameter>
   </properties>
   <settings>
     <setting key="anti ooze retract position">-4</setting>
