@@ -4,8 +4,10 @@
 # ---------
 # General constants used in Cura
 # ---------
-DEFAULT_CURA_APP_NAME = "WePrint"
-DEFAULT_CURA_DISPLAY_NAME = "WePrint Slicer"
+DEFAULT_CURA_APP_NAME = "Cura"
+DEFAULT_CURA_DISPLAY_NAME = "UltiMaker Cura"
+DEFAULT_WEPRINT_APP_NAME = "WePrint"
+DEFAULT_WEPRINT_DISPLAY_NAME = "WePrint"
 DEFAULT_CURA_VERSION = "dev"
 DEFAULT_CURA_BUILD_TYPE = ""
 DEFAULT_CURA_DEBUG_MODE = False
@@ -26,9 +28,9 @@ except ImportError:
 try:
     from cura.CuraVersion import CuraAppName  # type: ignore
     if CuraAppName == "":
-        CuraAppName = DEFAULT_CURA_APP_NAME
+        CuraAppName = DEFAULT_WEPRINT_APP_NAME
 except ImportError:
-    CuraAppName = DEFAULT_CURA_APP_NAME
+    CuraAppName = DEFAULT_WEPRINT_APP_NAME
 
 try:
     from cura.CuraVersion import CuraVersion  # type: ignore
@@ -62,12 +64,12 @@ IsAlternateVersion = CuraBuildType.lower() not in [DEFAULT_CURA_BUILD_TYPE, __EN
 try:
     from cura.CuraVersion import CuraAppDisplayName  # type: ignore
     if CuraAppDisplayName == "":
-        CuraAppDisplayName = DEFAULT_CURA_DISPLAY_NAME
+        CuraAppDisplayName = DEFAULT_WEPRINT_DISPLAY_NAME
     if IsEnterpriseVersion:
         CuraAppDisplayName = CuraAppDisplayName
 
 except ImportError:
-    CuraAppDisplayName = DEFAULT_CURA_DISPLAY_NAME
+    CuraAppDisplayName = DEFAULT_WEPRINT_DISPLAY_NAME
 
 DEPENDENCY_INFO = {}
 try:
