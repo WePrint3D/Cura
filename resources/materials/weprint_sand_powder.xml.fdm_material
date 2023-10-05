@@ -6,7 +6,7 @@ WePrint  Sand powder profile. The data in this file may not be correct for your 
     <metadata>
         <name>
             <brand>WePrint</brand>
-            <material>Powder</material>
+            <material>Official Powder</material>
             <color>Generic</color>
             <label>Sand Powder</label>
         </name>
@@ -18,7 +18,7 @@ WePrint  Sand powder profile. The data in this file may not be correct for your 
     </metadata>
     <properties>
         <density>1.60</density>
-        <diameter>2.85</diameter>
+        <diameter>1.75</diameter>
     </properties>
     <settings>
         <setting key="print temperature">0</setting>
@@ -31,6 +31,21 @@ WePrint  Sand powder profile. The data in this file may not be correct for your 
 
         <machine>
             <machine_identifier manufacturer="WePrint" product="WePrintOne" />
+            <setting key="retraction speed">0</setting>
+            <setting key="heated bed temperature">0</setting>
+            <setting key="print temperature">0</setting>
+            <!-- <hotend id="0.25mm thermoplastic extruder">
+                <setting key="hardware compatible">yes</setting>
+                <setting key="retraction amount">1.0</setting>
+            </hotend>
+            <hotend id="0.4mm thermoplastic extruder">
+                <setting key="hardware compatible">yes</setting>
+                <setting key="retraction amount">1.0</setting>
+            </hotend> -->
+        </machine>
+
+        <machine>
+            <machine_identifier manufacturer="WePrint" product="Weprint Ender-5" />
             <setting key="retraction speed">0</setting>
             <setting key="heated bed temperature">0</setting>
             <setting key="print temperature">0</setting>

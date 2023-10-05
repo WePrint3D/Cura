@@ -4,9 +4,9 @@
     "inherits": "fdmextruder",
     "metadata":
     {
-        "machine": "creality_base",
+        "machine": "weprint_ender_base",
         "position": "0",
-        "quality_definition": "creality_extruder_1"
+        "quality_definition": "weprint_ender_extruder_1"
     },
     "overrides":
     {
@@ -15,7 +15,6 @@
             "default_value": 0,
             "maximum_value": "2"
         },
-        "machine_nozzle_size": { "default_value": 0.4 },
         "material_diameter": { "default_value": 1.75 }
     }
 }

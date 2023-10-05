@@ -5,15 +5,15 @@
     "metadata":
     {
         "machine": "WePrintOne",
-        "position": "0",
+        "position": "2",
         "quality_definition": "weprintone_extruder_3"
     },
     "overrides":
     {
         "extruder_nr":
         {
-            "default_value": 0,
-            "maximum_value": "1"
+            "default_value": 2,
+            "maximum_value": "3"
         },
         "extruder_prime_pos_x": { "default_value": 9 },
         "extruder_prime_pos_y": { "default_value": 6 },
