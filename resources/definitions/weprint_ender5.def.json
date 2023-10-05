@@ -2,10 +2,7 @@
     "version": 2,
     "name": "Weprint Ender-5",
     "inherits": "weprint_ender_base",
-    "metadata":
-    {
-        "visible": true
-    },
+    "metadata": { "visible": true },
     "overrides":
     {
         "gantry_height": { "value": 25 },
