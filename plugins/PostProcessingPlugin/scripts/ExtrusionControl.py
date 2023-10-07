@@ -128,10 +128,10 @@ class ExtrusionControl(Script):
 
                 if ('T0' in line or 'T1' in line) and init_state == 1:
                     if extruder_state == 1:
-                        lines[line_number] =  M_deactivate + "\n" + "G4 P" + Extrusion_stop_time + "\n" + line + " P1"
+                        lines[line_number] =  M_deactivate + "\n" + "G4 P" + Extrusion_stop_time + "\n" + line
                         extruder_state = 0
                     else: lines[line_number] = line + " P1"
-                    
+
                 if Vaporisation_enable and 'LAYER:' in line:
                     lines[line_number] = M_vaporiation_start + "\n" + "G4 P" + Vaporisation_time + "\n" + M_vaporiation_stop + "\n" + line.split('\n')[0]
             
