@@ -103,9 +103,13 @@ class ExtrusionControl(Script):
             lines = layer.split("\n")
             # if Vaporisation_enable:
             #     lines[0] = M_vaporiation + "\n" + "G4 P" + Vaporisation_time + "\n" + M_vaporiation + "\n" +  lines[0]
+            null_lines = []
             for line_number, line in enumerate(lines):
                 
-                if 'G0' in line and 'X' in line and 'Y' in line and 'Z' in line and init_state == 0:
+                if 'G1' in line and 'Z' in line and init_state == 0:
+                    lines[line_number] = ''
+                    null_lines.append(line_number)
+                elif 'G0' in line and 'X' in line and 'Y' in line and 'Z' in line and init_state == 0:
                     lines[line_number] = line.split('Z')[0] + "\nG0 Z" +  line.split('Z')[1]
                     init_state = 1
                 elif  'G0' in line and extruder_state == 1: # Add the Stop extrusion and Dwell
@@ -113,16 +117,19 @@ class ExtrusionControl(Script):
                     extruder_state = 0
                 elif 'G92' in line and 'E' in line or 'E-' in line: # Remove the absolute extrusion
                     lines[line_number] = ''
+                    null_lines.append(line_number)
                 elif 'G1' in line and ('X' in line or 'Y' in line) and 'E' in line and extruder_state == 0: # Add the start extrusion
                     lines[line_number] = M_activate + "\n" + line.split('E')[0]
                     extruder_state = 1
-                elif 'G1' in line and 'E' in line and extruder_state == 1:
-                    lines[line_number] = line.split('E')[0]  
+                elif 'G1' in line and 'E' in line:
+                    # lines[line_number] = line.split('E')[0] 
+                    lines[line_number] = ''
                 elif 'G1' in line and not 'E' in line and extruder_state == 1:
                     lines[line_number] = M_deactivate + "\n" + "G4 P" + Extrusion_stop_time + "\n" + line.split('E')[0]
                     extruder_state = 0   
                 elif 'M104' in line or 'M105' in line or 'M106' in line or 'M107' in line or 'M109' in line or 'M82' in line or 'M83' in line:
                     lines[line_number] = ''
+                    null_lines.append(line_number)
                 else:
                     lines[line_number] = line
 
@@ -130,11 +137,13 @@ class ExtrusionControl(Script):
                     if extruder_state == 1:
                         lines[line_number] =  M_deactivate + "\n" + "G4 P" + Extrusion_stop_time + "\n" + line
                         extruder_state = 0
-                    else: lines[line_number] = line + " P1"
+                    else: lines[line_number] = line
 
                 if Vaporisation_enable and 'LAYER:' in line:
                     lines[line_number] = M_vaporiation_start + "\n" + "G4 P" + Vaporisation_time + "\n" + M_vaporiation_stop + "\n" + line.split('\n')[0]
             
+            for i in sorted(null_lines, reverse=True): 
+                lines.pop(i)
             new_layer = "\n".join(lines)
             data[layer_number] = new_layer
         return data
