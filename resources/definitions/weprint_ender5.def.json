@@ -1,0 +1,25 @@
+{
+    "version": 2,
+    "name": "Weprint Ender-5",
+    "inherits": "weprint_ender_base",
+    "metadata": { "visible": true },
+    "overrides":
+    {
+        "gantry_height": { "value": 25 },
+        "machine_depth": { "default_value": 230 },
+        "machine_end_gcode": { "default_value": "G28 ;Home" },
+        "machine_head_with_fans_polygon":
+        {
+            "default_value": [
+                [-26, 34],
+                [-26, -32],
+                [32, -32],
+                [32, 34]
+            ]
+        },
+        "machine_height": { "default_value": 172.6 },
+        "machine_name": { "default_value": "Weprint Ender-5" },
+        "machine_width": { "default_value": 235 },
+        "speed_print": { "value": 80.0 }
+    }
+}

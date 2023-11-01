@@ -21,14 +21,14 @@ class ConvertExtrudeToMs(Script):
                     "label": "M code to activate the extruder pin",
                     "description": "M code to activate the extruder pin",
                     "type": "str",
-                    "default_value": "84"
+                    "default_value": "M803"
                 },
                 "M_deactivate":
                 {
                     "label": "M code to deactivate the extruder pin",
                     "description": "M code to deactivate the extruder pin",
                     "type": "str",
-                    "default_value": "85"
+                    "default_value": "M805"
                 }
             }
         }"""
@@ -41,12 +41,12 @@ class ConvertExtrudeToMs(Script):
             for line_number, line in enumerate(lines):
                 if ';' in line:
                     lines[line_number] = line
-                elif 'G92' in line:
-                    lines[line_number] = ''
+                # elif 'G92' in line:
+                #     lines[line_number] = ''
                 elif 'G0' in line:
-                    lines[line_number] = line.split('\n')[0] + M_deactivate
+                    lines[line_number] = M_deactivate + "\n" + "G4 P1200" + "\n" + line.split('\n')[0]
                 elif 'G1' in line:
-                    lines[line_number] = line.split('E')[0] + M_activate
+                    lines[line_number] = M_activate + "\n" + line.split('E')[0]
                 else:
                     lines[line_number] = line
             new_layer = "\n".join(lines)
