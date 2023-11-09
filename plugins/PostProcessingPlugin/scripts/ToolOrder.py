@@ -10,11 +10,6 @@ import re #To perform the search and replace
 from typing import List
 from ..Script import Script
 
-# TODO: Control of the Water Vaporizer 
-# TODO: Define the Extruder control Parameter
-#           - Voltage control
-#           - Vaporizer time
-
 class ToolOrder(Script):
 
     """Performs a search-and-replace on all g-code.
@@ -60,7 +55,7 @@ class ToolOrder(Script):
             lines = layer.split("\n")
             new_layer = layer
 
-            if first_tool in layer and second_tool in layer and init_state == 0:
+            if (first_tool in layer or second_tool in layer) and init_state == 0:
                 init_state = 1
                 for line_number, line in enumerate(lines):
                     if first_tool in line :
@@ -70,17 +65,23 @@ class ToolOrder(Script):
                         active_tool = second_tool
                         break
 
-
-            elif active_tool == first_tool and second_tool in layer:
-                lines[0] = lines[0] + "\n" + first_tool
-                active_tool = second_tool
-                new_layer = "\n".join(lines)
-
-            elif active_tool == second_tool and first_tool in layer:
-                #Create a list from lines after the first tool line number
-                new_layer = first_tool + "\n" + layer.split(first_tool)[1] + "\n" + second_tool + "\n" + layer.split(first_tool)[0]
+            elif active_tool == second_tool and first_tool in layer and init_state == 1:
+                #Create a str from layer after the first tool line number to the last four "\n" lines before ";TIME_ELAPSED:"
+                n_layer = '\n'.join(lines[1:])
+                new_layer = lines[0] + "\n" + first_tool + "\n" + n_layer.split(first_tool)[1]
+                prev_last_four_first = '\n'.join(lines[-5:])
+                new_layer = new_layer.split(prev_last_four_first)[0] + "\n" + second_tool + "\n" + prev_last_four_second + "\n" + n_layer.split(first_tool)[0]
                 active_tool = first_tool
 
-            prev_last_four = lines[-4:] 
+            elif active_tool == first_tool and second_tool in layer and init_state == 1:
+                #Create a str from layer after the second tool line number to the last four "\n" lines before ";TIME_ELAPSED:"
+                new_layer = first_tool + "\n" + prev_last_four_first + layer
+                prev_last_four_second = '\n'.join(lines[-5:])
+                new_layer = new_layer.split(prev_last_four_second)[0]
+                active_tool = second_tool
+
+            elif active_tool == second_tool and not first_tool in layer and init_state == 1:
+                prev_last_four_second = '\n'.join(lines[-5:])
+
             data[layer_number] = new_layer
         return data
